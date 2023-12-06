@@ -1,0 +1,28 @@
+name: lab_junos_evpn_vxlan
+
+topology:
+  kinds:
+    vr-vmx:
+      image: vrnetlab/vr-vmx:20.2R1.10
+    linux:
+      image: alpine:latest
+  nodes:
+    spine-1:
+      kind: vr-vmx
+    spine-2:
+      kind: vr-vmx
+    leaf-1:
+      kind: vr-vmx
+    leaf-2:
+      kind: vr-vmx
+    customer-1:
+      kind: linux
+    customer-2:
+      kind: linux
+
+  links:
+    - endpoints: ["spine-1:eth1", "spine-2:eth1"]
+    - endpoints: ["spine-1:eth2", "leaf-1:eth2"]
+    - endpoints: ["spine-2:eth2", "leaf-2:eth2"]
+    - endpoints: ["leaf-1:eth1", "customer-1:eth1"]
+    - endpoints: ["leaf-2:eth1", "customer-2:eth1"]

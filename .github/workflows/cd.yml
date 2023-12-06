@@ -1,0 +1,33 @@
+name: containerlab management
+run-name: ${{inputs.containerlab_command}}, ${{inputs.lab_directory}} by ${{github.actor}}
+
+
+on:
+    workflow_dispatch:
+        inputs:
+            containerlab_command:
+                description: 'containerlab command'
+                required: true
+                type: choice
+                options:
+                    - deploy
+                    - destroy
+            lab_directory:
+                description: 'lab directory'
+                required: true
+                type: string
+                         
+jobs:
+    lab:
+        name: ${{inputs.containerlab_command}} ${{inputs.lab_directory}}
+        runs-on: self-hosted
+        steps:
+
+            - name: execute command
+              run: |
+                cd /home/containerlab/containerlabs/$CONTAINERLAB_LAB_DIR && \
+                sudo containerlab $CONTAINERLAB_COMMAND
+
+        env:
+            CONTAINERLAB_COMMAND: ${{ inputs.containerlab_command }}
+            CONTAINERLAB_LAB_DIR: ${{ inputs.lab_directory }}

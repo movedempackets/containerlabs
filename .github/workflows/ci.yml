@@ -1,0 +1,27 @@
+name: containerlab tests
+on:
+    push:
+        branches:
+            - 'main'
+
+jobs:
+    ajv:
+        name: test lab files are valid
+        runs-on: linux
+        steps: 
+            - uses: actions/checkout@v3
+
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 18
+            
+            - name: install ajv-cli
+              run: npm install -g ajv-cli
+            
+            - name: fetch clab.schema.json
+              run: curl https://raw.githubusercontent.com/srl-labs/containerlab/main/schemas/clab.schema.json -o clab.schema.json
+
+            - name: test files are valid against schema
+              run: ajv -s clab.schema.json -d "lab_*/*.clab.yml" --strict=false
+
+

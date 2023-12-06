@@ -1,0 +1,14 @@
+name: lab_example
+
+topology:
+  kinds:
+    vr-vmx:
+      image: vrnetlab/vr-vmx:20.2R1.10
+  nodes:
+    r1:
+      kind: vr-vmx
+    r2:
+      kind: vr-vmx
+
+  links:
+    - endpoints: ["r1:eth1", "r2:eth1"]

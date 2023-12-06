@@ -1,0 +1,8 @@
+# ignore the helt vrnet repo
+vrnetlab/
+# ignore files created at runtime
+*.yml.bak
+**/clab-*/
+# ignore ide's and editors.
+.vscode
+.idea
